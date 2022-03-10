@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/drawable/botoom_nav_bc.xml" value="0.209" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/drawable/image_black_background.xml" value="0.1035" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/drawable/item_home.xml" value="0.209" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/drawable/my_progress_indeterminate.xml" value="0.1955" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/drawable/progress_animation.xml" value="0.1955" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/drawable/tab_background.xml" value="0.2535" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/drawable/tab_selector.xml" value="0.2535" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/layout/fragment_home_page.xml" value="0.21" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/layout/fragment_inner_home.xml" value="0.28815733219324496" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/layout/fragment_messaging_page.xml" value="0.3009833262077811" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/layout/fragment_profile_page.xml" value="0.3009833262077811" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/layout/fragment_searching_page.xml" value="0.3009833262077811" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/layout/home_page_image_item.xml" value="0.38558786346396967" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/menu/item_menu.xml" value="0.36666666666666664" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

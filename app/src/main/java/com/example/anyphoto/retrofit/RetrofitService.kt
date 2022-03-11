@@ -1,9 +1,10 @@
 package com.example.anyphoto.retrofit
 
+
 import com.example.anyphoto.model.photos.Photo
+import com.example.anyphoto.model.search.SearchPhoto
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -15,6 +16,9 @@ interface RetrofitService {
 
     @GET("topics/{id}/photos}?per_page=25")
     fun listTopicPost(@Path("id") id: String, @Query("page") page: Int): Call<ArrayList<Photo>>?
+
+    @GET("search/photos?per_page=25")
+    fun listSearchPhotos(@Query("page") page: Int, @Query("query") query: String): Call<SearchPhoto>?
 
     @GET("{photoType}?per_page=25")
     fun listPost(@Path("photoType") photoType: String, @Query("page") page: Int): Call<ArrayList<Photo>>?

@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/drawable/botoom_nav_bc.xml" value="0.209" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/drawable/color_cursor.xml" value="0.1785" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/drawable/edittext_bk.xml" value="0.1785" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1785" />
         <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/drawable/image_black_background.xml" value="0.1035" />
         <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/drawable/item_home.xml" value="0.209" />
         <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/drawable/my_progress_indeterminate.xml" value="0.1955" />
@@ -15,7 +18,7 @@
         <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/layout/fragment_inner_home.xml" value="0.28815733219324496" />
         <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/layout/fragment_messaging_page.xml" value="0.3009833262077811" />
         <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/layout/fragment_profile_page.xml" value="0.3009833262077811" />
-        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/layout/fragment_searching_page.xml" value="0.3009833262077811" />
+        <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/layout/fragment_searching_page.xml" value="0.25" />
         <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/layout/home_page_image_item.xml" value="0.38558786346396967" />
         <entry key="..\:/Users/Jamshid/AndroidStudioProjects/AnyPhoto/app/src/main/res/menu/item_menu.xml" value="0.36666666666666664" />
       </map>

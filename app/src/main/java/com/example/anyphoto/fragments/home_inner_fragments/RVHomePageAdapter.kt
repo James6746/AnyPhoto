@@ -30,7 +30,7 @@ class RVHomePageAdapter(
                 .placeholder(R.drawable.placeholder).fitCenter().into(holder.photo)
 
             Glide.with(MyApplication.context).load(photo.user!!.profileImage!!.medium)
-                .placeholder(R.drawable.photo).into(holder.profilePhoto)
+                .placeholder(R.drawable.placeholder).into(holder.profilePhoto)
 
             holder.fullname.text = photo.user.username
 

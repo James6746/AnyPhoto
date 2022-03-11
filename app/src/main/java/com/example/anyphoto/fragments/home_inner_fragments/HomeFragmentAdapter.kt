@@ -10,7 +10,6 @@ import com.example.anyphoto.model.photos.Photo
 class HomeFragmentAdapter(
     fm: FragmentManager,
     lifecycle: Lifecycle,
-    var bottomReachedListener: RVHomePageAdapter.BottomReachedListener
 ) :
     FragmentStateAdapter(fm, lifecycle) {
 
@@ -24,8 +23,8 @@ class HomeFragmentAdapter(
         var innerHomeFragment: Fragment? = null
 
         when (position) {
-            0 -> innerHomeFragment = InnerHomeFragment(bottomReachedListener)
-            1 -> innerHomeFragment = InnerHomeFragment(bottomReachedListener)
+            0 -> innerHomeFragment = InnerHomeFragment("photos")
+            1 -> innerHomeFragment = InnerHomeFragment("act-for-nature", true)
 //            2 -> innerHomeFragment = InnerHomeFragment(null)
 //            3 -> innerHomeFragment = InnerHomeFragment(null)
 //            4 -> innerHomeFragment = InnerHomeFragment(null)

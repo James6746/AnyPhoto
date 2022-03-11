@@ -44,10 +44,10 @@ class MainActivity : BaseActivity() {
 
         var fragment: Fragment = HomePage()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frame_layout, fragment!!).commit()
+            .replace(R.id.main_frame_layout, fragment).commit()
 
 
-        var badge = navBar.getOrCreateBadge(R.id.meassage)
+        val badge = navBar.getOrCreateBadge(R.id.meassage)
         badge.isVisible = true
         badge.number = 7
 

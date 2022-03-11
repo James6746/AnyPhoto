@@ -29,7 +29,7 @@ class SearchingPage : Fragment() {
     lateinit var photos: ArrayList<Photo>
     lateinit var adapter: RVHomePageAdapter
     private var page: Int = 1
-    lateinit var query: String
+    private var query: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +43,7 @@ class SearchingPage : Fragment() {
 
     private fun initViews(view: View) {
         photos = ArrayList()
+        Log.d("ArrayLIstSize= ", photos.size.toString())
         page = 1
         rvSearch = view.findViewById(R.id.rv_search)
         noSearch = view.findViewById(R.id.no_search)
@@ -58,7 +59,9 @@ class SearchingPage : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!rvSearch.canScrollVertically(RecyclerView.VERTICAL) && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    doRequestForLoadMorePhotos(query, ++page)
+                    if(query != ""){
+                        doRequestForLoadMorePhotos(query, page)
+                    }
                 }
             }
         })
@@ -81,8 +84,8 @@ class SearchingPage : Fragment() {
     private fun doRequestForPhotos(query: String) {
         MainActivity.progressBar.visibility = View.VISIBLE
         val previousSize = photos.size
-        photos.removeAll(photos)
         page = 1
+        photos.removeAll(photos)
         adapter.notifyItemRangeRemoved(0, previousSize)
 
         RetrofitHttp.retrofitService.listSearchPhotos(1, query)!!
@@ -94,7 +97,11 @@ class SearchingPage : Fragment() {
                     photos.addAll(response.body()!!.results!!)
                     adapter.notifyItemRangeInserted(0, response.body()!!.results!!.size)
                     noSearch.visibility = View.INVISIBLE
+                    page++
                     MainActivity.progressBar.visibility = View.INVISIBLE
+                    if(photos.size == 0){
+                        noSearch.visibility = View.VISIBLE
+                    }
                 }
 
                 override fun onFailure(call: Call<SearchPhoto>, t: Throwable) {
@@ -105,11 +112,11 @@ class SearchingPage : Fragment() {
             })
     }
 
-    private fun doRequestForLoadMorePhotos(query: String, page: Int) {
+    private fun doRequestForLoadMorePhotos(query: String, cpage: Int) {
         MainActivity.progressBar.visibility = View.VISIBLE
         val previousSize = photos.size
 
-        RetrofitHttp.retrofitService.listSearchPhotos(page, query)!!
+        RetrofitHttp.retrofitService.listSearchPhotos(cpage, query)!!
             .enqueue(object : Callback<SearchPhoto> {
                 override fun onResponse(
                     call: Call<SearchPhoto>,
@@ -117,7 +124,11 @@ class SearchingPage : Fragment() {
                 ) {
                     photos.addAll(response.body()!!.results!!)
                     adapter.notifyItemRangeInserted(previousSize, response.body()!!.results!!.size)
+                    page++
                     MainActivity.progressBar.visibility = View.INVISIBLE
+                    if(photos.size == 0){
+                        noSearch.visibility = View.VISIBLE
+                    }
                 }
 
                 override fun onFailure(call: Call<SearchPhoto>, t: Throwable) {
@@ -126,6 +137,7 @@ class SearchingPage : Fragment() {
                 }
 
             })
+
     }
 
 }

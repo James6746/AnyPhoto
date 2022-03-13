@@ -1,5 +1,7 @@
 package com.example.anyphoto.fragments
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -7,8 +9,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -29,6 +34,7 @@ class SearchingPage : Fragment() {
     lateinit var photos: ArrayList<Photo>
     lateinit var adapter: RVHomePageAdapter
     private var page: Int = 1
+    lateinit var tvCancel: TextView
     private var query: String = ""
 
     override fun onCreateView(
@@ -42,12 +48,16 @@ class SearchingPage : Fragment() {
     }
 
     private fun initViews(view: View) {
+        tvCancel = view.findViewById(R.id.tv_cancel)
         photos = ArrayList()
-        Log.d("ArrayLIstSize= ", photos.size.toString())
         page = 1
         rvSearch = view.findViewById(R.id.rv_search)
         noSearch = view.findViewById(R.id.no_search)
         etSearch = view.findViewById(R.id.et_search)
+
+        tvCancel.setOnClickListener {
+            hideKeyboard()
+        }
 
         val manager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         rvSearch.setHasFixedSize(true)
@@ -59,20 +69,33 @@ class SearchingPage : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!rvSearch.canScrollVertically(RecyclerView.VERTICAL) && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    if(query != ""){
-                        doRequestForLoadMorePhotos(query, page)
+                    if (query != "" && photos.size != 0 && adapter.items.size != 0) {
+                        doRequestForLoadMorePhotos(query)
                     }
                 }
             }
         })
 
-        etSearch.setOnEditorActionListener { _, actionId, keyEvent ->
-            if ((keyEvent != null && (keyEvent.keyCode == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_SEARCH)) {
-                query = etSearch.text.toString()
-                doRequestForPhotos(query)
+
+
+        etSearch.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(
+                p0: TextView?,
+                actionId: Int,
+                keyEvent: KeyEvent?
+            ): Boolean {
+                if ((keyEvent != null && (keyEvent.keyCode == KeyEvent.KEYCODE_ENTER)))
+                    return false
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    query = etSearch.text.toString()
+                    hideKeyboard()
+                    doRequestForPhotos(query)
+                    return false
+                }
+                return false
             }
-            false
-        }
+
+        })
 
     }
 
@@ -84,7 +107,7 @@ class SearchingPage : Fragment() {
     private fun doRequestForPhotos(query: String) {
         MainActivity.progressBar.visibility = View.VISIBLE
         val previousSize = photos.size
-        page = 1
+        page = 2
         photos.removeAll(photos)
         adapter.notifyItemRangeRemoved(0, previousSize)
 
@@ -94,12 +117,12 @@ class SearchingPage : Fragment() {
                     call: Call<SearchPhoto>,
                     response: Response<SearchPhoto>
                 ) {
-                    photos.addAll(response.body()!!.results!!)
-                    adapter.notifyItemRangeInserted(0, response.body()!!.results!!.size)
+                    val list = response.body()!!.results!!
+                    photos.addAll(list)
+                    adapter.notifyItemRangeInserted(0, list.size)
                     noSearch.visibility = View.INVISIBLE
-                    page++
                     MainActivity.progressBar.visibility = View.INVISIBLE
-                    if(photos.size == 0){
+                    if (photos.size == 0) {
                         noSearch.visibility = View.VISIBLE
                     }
                 }
@@ -112,11 +135,13 @@ class SearchingPage : Fragment() {
             })
     }
 
-    private fun doRequestForLoadMorePhotos(query: String, cpage: Int) {
+    private fun doRequestForLoadMorePhotos(query: String) {
         MainActivity.progressBar.visibility = View.VISIBLE
         val previousSize = photos.size
-
-        RetrofitHttp.retrofitService.listSearchPhotos(cpage, query)!!
+        Toast.makeText(activity, "$page qidirilmoqda", Toast.LENGTH_SHORT).show()
+        val tPage = page
+        page++
+        RetrofitHttp.retrofitService.listSearchPhotos(tPage, query)!!
             .enqueue(object : Callback<SearchPhoto> {
                 override fun onResponse(
                     call: Call<SearchPhoto>,
@@ -124,9 +149,8 @@ class SearchingPage : Fragment() {
                 ) {
                     photos.addAll(response.body()!!.results!!)
                     adapter.notifyItemRangeInserted(previousSize, response.body()!!.results!!.size)
-                    page++
                     MainActivity.progressBar.visibility = View.INVISIBLE
-                    if(photos.size == 0){
+                    if (photos.size == 0) {
                         noSearch.visibility = View.VISIBLE
                     }
                 }
@@ -137,7 +161,20 @@ class SearchingPage : Fragment() {
                 }
 
             })
+    }
 
+    private fun Fragment.hideKeyboard() {
+        view?.let { activity?.hideKeyboard(it) }
+    }
+
+    fun Activity.hideKeyboard() {
+        hideKeyboard(currentFocus ?: View(this))
+    }
+
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
 }

@@ -31,7 +31,7 @@
             tools:ignore="RtlSymmetry" />
 
         <TextView
-            android:id="@+id/search"
+            android:id="@+id/tv_cancel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="8dp"

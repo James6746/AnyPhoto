@@ -2,11 +2,10 @@ package com.example.anyphoto.retrofit
 
 
 import com.example.anyphoto.model.photos.Photo
+import com.example.anyphoto.model.photos.User
 import com.example.anyphoto.model.search.SearchPhoto
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 
 interface RetrofitService {
@@ -28,4 +27,10 @@ interface RetrofitService {
 
     @GET("photos/{id}")
     fun getSingle(@Path("id") id: Int): Call<Photo>?
+/*
+    @POST("users")
+    fun cretueUser(@Body user: User)
+
+    @FormUrlEncoded
+    fun login(@Field("username") username: String)*/
 }
